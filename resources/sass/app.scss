@@ -482,3 +482,34 @@ body {
 .sitio-footer-copy {
     background-color: rgba($black, .25);
 }
+
+// ---------- Clima ----------
+.sitio-topbar-clima {
+    .bi {
+        color: $warning;
+        margin-right: .2rem;
+    }
+}
+
+.widget-clima-actual > .bi {
+    font-size: 2.8rem;
+    color: $warning;
+    line-height: 1;
+}
+
+.widget-clima-temp {
+    font-family: $headings-font-family;
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.widget-clima-pronostico {
+    border-top: 1px solid $gray-200;
+    padding-top: .6rem;
+
+    .bi {
+        font-size: 1.4rem;
+        color: $warning;
+    }
+}

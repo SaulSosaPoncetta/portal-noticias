@@ -34,8 +34,14 @@
             </span>
 
             <div class="d-flex align-items-center gap-3">
-                {{-- El widget de clima se agrega en el Módulo 8 --}}
-                @stack('topbar')
+                {{-- Clima actual --}}
+                @if ($clima)
+                    <span class="sitio-topbar-clima" title="{{ $clima['descripcion'] }}">
+                        <i class="bi bi-{{ $clima['icono'] }}"></i>
+                        <strong>{{ $clima['temperatura'] }}°</strong>
+                        <span class="d-none d-md-inline">{{ $clima['ciudad'] }}</span>
+                    </span>
+                @endif
 
                 <span class="d-none d-sm-flex gap-2">
                     @foreach ($redes as $clave => [$icono, $nombre])

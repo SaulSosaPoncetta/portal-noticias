@@ -17,6 +17,34 @@
     </section>
 @endif
 
+{{-- Clima --}}
+@if (! empty($clima))
+    <section class="widget mb-4">
+        <h2 class="widget-titulo"><i class="bi bi-cloud-sun-fill"></i> Clima en {{ $clima['ciudad'] }}</h2>
+        <div class="widget-clima-actual d-flex align-items-center gap-3 mb-3">
+            <i class="bi bi-{{ $clima['icono'] }}"></i>
+            <div>
+                <div class="widget-clima-temp">{{ $clima['temperatura'] }}°</div>
+                <div class="small">{{ $clima['descripcion'] }}</div>
+            </div>
+            <ul class="list-unstyled small text-secondary ms-auto mb-0 text-end">
+                <li>Sensación {{ $clima['sensacion'] }}°</li>
+                <li><i class="bi bi-droplet"></i> {{ $clima['humedad'] }}%</li>
+                <li><i class="bi bi-wind"></i> {{ $clima['viento'] }} km/h</li>
+            </ul>
+        </div>
+        <div class="row g-2 text-center widget-clima-pronostico">
+            @foreach ($clima['pronostico'] as $dia)
+                <div class="col-3">
+                    <div class="fw-semibold small">{{ $dia['dia'] }}</div>
+                    <i class="bi bi-{{ $dia['icono'] }}" title="{{ $dia['descripcion'] }}"></i>
+                    <div class="small"><strong>{{ $dia['maxima'] }}°</strong> <span class="text-secondary">{{ $dia['minima'] }}°</span></div>
+                </div>
+            @endforeach
+        </div>
+    </section>
+@endif
+
 {{-- Cotizaciones --}}
 @if ($cotizaciones->isNotEmpty())
     <section class="widget mb-4">

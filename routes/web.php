@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\CotizacionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NoticiaController;
 use App\Http\Controllers\PortadaController;
@@ -60,6 +61,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('noticias', NoticiaController::class)
                 ->except('show')
                 ->parameters(['noticias' => 'noticia']);
+        });
+
+        // ---- Módulo 8: Cotizaciones y clima ----
+        Route::middleware('permission:cotizaciones.gestionar')->group(function () {
+            Route::get('cotizaciones', [CotizacionController::class, 'index'])->name('cotizaciones.index');
+            Route::put('cotizaciones', [CotizacionController::class, 'update'])->name('cotizaciones.update');
+            Route::post('cotizaciones/actualizar', [CotizacionController::class, 'actualizar'])
+                ->middleware('throttle:6,1')
+                ->name('cotizaciones.actualizar');
         });
     });
 });

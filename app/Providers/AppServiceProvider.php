@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Categoria;
 use App\Models\Configuracion;
 use App\Models\Noticia;
+use App\Services\ClimaService;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -33,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
                 'categoriasMenu' => Categoria::delMenu()->get(['id', 'nombre', 'slug', 'color']),
                 'ultimoMomento'  => Noticia::publicadas()->recientes()->take(6)->get(['id', 'titulo', 'slug', 'publicada_at']),
             ]);
+        });
+
+        // Clima para la barra superior y la columna lateral (cacheado 30 minutos)
+        View::composer(['layouts.publico', 'publico.partials.sidebar'], function ($view) {
+            $view->with('clima', app(ClimaService::class)->obtener());
         });
     }
 }
