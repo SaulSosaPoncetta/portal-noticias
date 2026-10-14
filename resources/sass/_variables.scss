@@ -1,0 +1,27 @@
+// =====================================================
+// Diario Horizonte - Variables de marca
+// Cambiá estos valores para adaptar el portal a otro diario.
+// =====================================================
+
+// Colores de marca
+$primary:   #0b3d91;   // azul institucional
+$secondary: #5c6b7a;
+$danger:    #d62828;   // "último momento" / volantas
+$warning:   #f4a259;
+$dark:      #14213d;
+$light:     #f5f6f8;
+
+// Tipografía
+$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+$headings-font-family:   "Merriweather", Georgia, "Times New Roman", serif;
+$headings-font-weight:   700;
+$font-size-base:         1rem;
+
+// Bordes y sombras
+$border-radius:    .375rem;
+$border-radius-lg: .5rem;
+$enable-shadows:   true;
+
+// Links
+$link-decoration:       none;
+$link-hover-decoration: underline;
