@@ -130,3 +130,355 @@ body {
 .admin-login {
     background: linear-gradient(135deg, $dark 0%, $primary 100%);
 }
+
+// =====================================================
+// Sitio público
+// =====================================================
+
+.sitio-body {
+    background-color: $white;
+}
+
+// ---------- Barra superior ----------
+.sitio-topbar {
+    background-color: $dark;
+    color: rgba($white, .8);
+    font-size: .8rem;
+    padding: .35rem 0;
+
+    a {
+        color: rgba($white, .8);
+
+        &:hover {
+            color: $white;
+            text-decoration: none;
+        }
+    }
+}
+
+// ---------- Cabecera / logo ----------
+.sitio-header {
+    background-color: $white;
+}
+
+.sitio-logo {
+    color: $dark;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.sitio-logo-texto {
+    display: block;
+    font-family: $headings-font-family;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1;
+    letter-spacing: -.02em;
+    color: $primary;
+}
+
+.sitio-logo-eslogan {
+    display: block;
+    font-size: .8rem;
+    color: $secondary;
+    margin-top: .25rem;
+}
+
+.sitio-publicidad-header {
+    max-width: 728px;
+    width: 100%;
+}
+
+// ---------- Menú ----------
+.sitio-nav {
+    background-color: $primary;
+    box-shadow: 0 2px 6px rgba($black, .15);
+
+    .nav-link {
+        font-size: .85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+        color: rgba($white, .9);
+        padding-top: .8rem;
+        padding-bottom: .8rem;
+
+        @include media-breakpoint-up(lg) {
+            padding-left: .7rem;
+            padding-right: .7rem;
+        }
+
+        &:hover,
+        &.active {
+            color: $white;
+            background-color: rgba($black, .15);
+            text-decoration: none;
+        }
+    }
+}
+
+// ---------- Último momento (cinta animada) ----------
+.sitio-ticker {
+    background-color: $light;
+    border-bottom: 1px solid $gray-300;
+    font-size: .85rem;
+}
+
+.sitio-ticker-etiqueta {
+    flex-shrink: 0;
+    background-color: $danger;
+    color: $white;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: .7rem;
+    letter-spacing: .05em;
+    padding: .55rem .75rem;
+    margin-right: .75rem;
+}
+
+.sitio-ticker-ventana {
+    overflow: hidden;
+    white-space: nowrap;
+    flex-grow: 1;
+    mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+}
+
+.sitio-ticker-cinta {
+    display: inline-block;
+    animation: ticker 60s linear infinite;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+
+    a {
+        color: $dark;
+        margin-right: 2.5rem;
+
+        strong {
+            color: $danger;
+            margin-right: .3rem;
+        }
+    }
+}
+
+@keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sitio-ticker-cinta {
+        animation: none;
+    }
+}
+
+// ---------- Notas ----------
+.nota {
+    .nota-imagen {
+        overflow: hidden;
+        border-radius: $border-radius;
+
+        img {
+            transition: transform .3s ease;
+        }
+
+        &:hover img {
+            transform: scale(1.04);
+        }
+    }
+
+    .volanta:hover {
+        text-decoration: none;
+        opacity: .8;
+    }
+}
+
+.nota-grande-titulo {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 900;
+}
+
+.nota-bajada {
+    color: $gray-700;
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+.nota-media-titulo {
+    font-size: 1.1rem;
+}
+
+.nota-chica {
+    .nota-imagen {
+        width: 120px;
+    }
+
+    @include media-breakpoint-up(sm) {
+        .nota-imagen {
+            width: 160px;
+        }
+    }
+}
+
+.nota-chica-titulo {
+    font-size: 1rem;
+}
+
+// ---------- Bloques por sección ----------
+.bloque-seccion-cabecera {
+    border-bottom: 3px solid var(--color-seccion, #{$primary});
+    padding-bottom: .4rem;
+}
+
+.bloque-seccion-titulo {
+    font-family: $headings-font-family;
+    font-size: 1.5rem;
+    font-weight: 900;
+
+    a {
+        color: var(--color-seccion, #{$primary});
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+.bloque-seccion-mas {
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: $secondary;
+}
+
+// ---------- Columna lateral / widgets ----------
+@include media-breakpoint-up(lg) {
+    .sitio-sidebar {
+        position: sticky;
+        top: 70px;
+    }
+}
+
+.widget-titulo {
+    font-size: .85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: $white;
+    background-color: $dark;
+    padding: .5rem .75rem;
+    margin-bottom: .75rem;
+    border-left: 4px solid $danger;
+
+    .bi {
+        color: $warning;
+        margin-right: .25rem;
+    }
+}
+
+.widget-ultimas li {
+    display: flex;
+    gap: .75rem;
+    padding: .55rem 0;
+    border-bottom: 1px solid $gray-200;
+    font-size: .92rem;
+    line-height: 1.35;
+
+    time {
+        color: $danger;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    a {
+        color: $dark;
+    }
+}
+
+.widget-cotizaciones {
+    font-size: .85rem;
+
+    th {
+        font-weight: 600;
+        color: $secondary;
+    }
+}
+
+.widget-ranking li {
+    display: flex;
+    gap: .75rem;
+    padding: .6rem 0;
+    border-bottom: 1px solid $gray-200;
+
+    .titulo-nota {
+        color: $dark;
+        font-size: .95rem;
+    }
+}
+
+.widget-ranking-numero {
+    font-family: $headings-font-family;
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 1;
+    color: $gray-400;
+    min-width: 1.8rem;
+}
+
+// ---------- Publicidad ----------
+.sitio-publicidad {
+    text-align: center;
+}
+
+.sitio-publicidad-etiqueta {
+    display: block;
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: $gray-500;
+    margin-top: -.6rem;
+    margin-bottom: 1rem;
+}
+
+// ---------- Pie de página ----------
+.sitio-footer {
+    background-color: $dark;
+    color: $white;
+    margin-top: 3rem;
+
+    a {
+        color: rgba($white, .8);
+
+        &:hover {
+            color: $white;
+        }
+    }
+}
+
+.sitio-footer-titulo {
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: $warning;
+    margin-bottom: 1rem;
+}
+
+.sitio-footer-menu li {
+    margin-bottom: .35rem;
+}
+
+.sitio-footer-legales li {
+    margin-bottom: .35rem;
+
+    span {
+        color: rgba($white, .9);
+    }
+}
+
+.sitio-footer-copy {
+    background-color: rgba($black, .25);
+}

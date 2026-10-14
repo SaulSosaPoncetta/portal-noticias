@@ -4,18 +4,20 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NoticiaController;
+use App\Http\Controllers\PortadaController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
 | Sitio público
 |--------------------------------------------------------------------------
-| La portada real se arma en el Módulo 7.
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('inicio');
+Route::get('/', [PortadaController::class, 'index'])->name('inicio');
+
+// Páginas de nota y sección: se completan en el Módulo 9
+Route::get('nota/{noticia}', fn () => view('publico.proximamente'))->name('nota');
+Route::get('seccion/{categoria}', fn () => view('publico.proximamente'))->name('seccion');
 
 /*
 |--------------------------------------------------------------------------
