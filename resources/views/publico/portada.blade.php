@@ -1,9 +1,5 @@
 @extends('layouts.publico')
 
-@push('banner-header')
-    @include('publico.partials.publicidad', ['banners' => $publicidades['header'] ?? collect(), 'clase' => 'sitio-publicidad-header'])
-@endpush
-
 @section('contenido')
 <div class="container">
 
@@ -60,7 +56,7 @@
 
             {{-- Publicidad cada 2 bloques --}}
             @if ($loop->index > 0 && $loop->index % 2 === 0)
-                @include('publico.partials.publicidad', ['banners' => $publicidades['entre_bloques'] ?? collect(), 'clase' => 'my-4'])
+                @include('publico.partials.publicidad', ['banners' => $bannersEntreBloques, 'clase' => 'my-4'])
             @endif
 
             <section class="bloque-seccion mt-5" style="--color-seccion: {{ $categoria->color }}">

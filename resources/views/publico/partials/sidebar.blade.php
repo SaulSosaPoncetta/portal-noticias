@@ -1,6 +1,6 @@
 {{-- Columna lateral: últimas noticias, cotizaciones, más leídas y publicidad --}}
 
-@include('publico.partials.publicidad', ['banners' => $publicidades['sidebar'] ?? collect()])
+@include('publico.partials.publicidad', ['banners' => $publicidadesSidebar])
 
 {{-- Últimas noticias --}}
 @if ($ultimas->isNotEmpty())

@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Models\Categoria;
 use App\Models\Configuracion;
+use App\Models\Cotizacion;
 use App\Models\Noticia;
+use App\Models\Publicidad;
 use App\Services\ClimaService;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
@@ -27,12 +29,32 @@ class AppServiceProvider extends ServiceProvider
         // Paginación con estilos de Bootstrap 5
         Paginator::useBootstrapFive();
 
-        // Datos que necesita el layout público en todas las páginas
+        // ------------------------------------------------------------
+        // Layout público: menú, configuración, cinta y banner del header
+        // ------------------------------------------------------------
+        // Configuración del sitio en el layout y en todas las vistas públicas
+        View::composer(['layouts.publico', 'publico.*'], function ($view) {
+            $view->with('config', Configuracion::todas());
+        });
+
         View::composer('layouts.publico', function ($view) {
             $view->with([
-                'config'         => Configuracion::todas(),
                 'categoriasMenu' => Categoria::delMenu()->get(['id', 'nombre', 'slug', 'color']),
                 'ultimoMomento'  => Noticia::publicadas()->recientes()->take(6)->get(['id', 'titulo', 'slug', 'publicada_at']),
+                'bannersHeader'  => Publicidad::vigentes()->enPosicion('header')->get(),
+                'bannersFooter'  => Publicidad::vigentes()->enPosicion('footer')->get(),
+            ]);
+        });
+
+        // ------------------------------------------------------------
+        // Columna lateral (portada, nota, sección y etiqueta)
+        // ------------------------------------------------------------
+        View::composer('publico.partials.sidebar', function ($view) {
+            $view->with([
+                'ultimas'            => Noticia::publicadas()->recientes()->take(6)->get(['id', 'titulo', 'slug', 'publicada_at']),
+                'masLeidas'          => Noticia::masLeidas(2)->with('categoria')->take(5)->get(),
+                'cotizaciones'       => Cotizacion::visibles()->get(),
+                'publicidadesSidebar' => Publicidad::vigentes()->enPosicion('sidebar')->get(),
             ]);
         });
 

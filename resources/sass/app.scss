@@ -513,3 +513,149 @@ body {
         color: $warning;
     }
 }
+
+// =====================================================
+// Página de nota
+// =====================================================
+
+.nota-titulo {
+    font-size: clamp(1.75rem, 4vw, 2.6rem);
+    font-weight: 900;
+    letter-spacing: -.01em;
+}
+
+.nota-bajada-grande {
+    font-size: 1.2rem;
+    margin-top: .75rem;
+}
+
+.nota-epigrafe {
+    font-size: .85rem;
+    color: $secondary;
+    border-left: 3px solid $gray-300;
+    padding-left: .6rem;
+    margin-top: .5rem;
+}
+
+.nota-cuerpo {
+    font-size: 1.12rem;
+    line-height: 1.75;
+    color: $gray-900;
+
+    p {
+        margin-bottom: 1.25rem;
+    }
+
+    h2, h3 {
+        font-family: $headings-font-family;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+
+    a {
+        color: $primary;
+        text-decoration: underline;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: $border-radius;
+        margin: .5rem 0;
+    }
+
+    // Videos insertados desde el editor
+    iframe,
+    .ql-video {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        height: auto;
+        border: 0;
+        border-radius: $border-radius;
+        margin: 1.5rem 0;
+    }
+
+    blockquote {
+        font-family: $headings-font-family;
+        font-size: 1.3rem;
+        font-style: italic;
+        border-left: 4px solid $danger;
+        padding: .5rem 0 .5rem 1.25rem;
+        margin: 2rem 0;
+        color: $dark;
+    }
+
+    ul, ol {
+        margin-bottom: 1.25rem;
+    }
+
+    // Alineaciones que genera el editor Quill
+    .ql-align-center  { text-align: center; }
+    .ql-align-right   { text-align: right; }
+    .ql-align-justify { text-align: justify; }
+}
+
+// ---------- Compartir ----------
+.compartir-btn {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: $white;
+    background-color: $secondary;
+    border: 0;
+
+    &:hover {
+        color: $white;
+        opacity: .85;
+    }
+}
+
+.compartir-whatsapp { background-color: #25d366; }
+.compartir-facebook { background-color: #1877f2; }
+.compartir-x        { background-color: #000; }
+.compartir-telegram { background-color: #229ed9; }
+
+// ---------- Listado de sección ----------
+.listado-titulo {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
+
+.nota-tags .badge {
+    font-weight: 500;
+    font-size: .85rem;
+    color: $dark;
+
+    &:hover {
+        background-color: $gray-200 !important;
+        text-decoration: none;
+    }
+}
+
+// ---------- Buscador del menú ----------
+.sitio-buscador {
+    @include media-breakpoint-up(lg) {
+        width: 220px;
+    }
+
+    .form-control {
+        background-color: rgba($white, .15);
+        border-color: transparent;
+        color: $white;
+
+        &::placeholder {
+            color: rgba($white, .7);
+        }
+
+        &:focus {
+            background-color: $white;
+            color: $dark;
+        }
+    }
+}

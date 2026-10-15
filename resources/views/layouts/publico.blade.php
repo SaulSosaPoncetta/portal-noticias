@@ -67,7 +67,7 @@
             </a>
 
             {{-- Banner del header --}}
-            @stack('banner-header')
+            @include('publico.partials.publicidad', ['banners' => $bannersHeader, 'clase' => 'sitio-publicidad-header'])
         </div>
     </header>
 
@@ -94,6 +94,13 @@
                         </li>
                     @endforeach
                 </ul>
+
+                {{-- Buscador --}}
+                <form action="{{ route('buscar') }}" method="GET" role="search" class="sitio-buscador d-flex py-2 py-lg-0">
+                    <input type="search" name="q" value="{{ request()->routeIs('buscar') ? request('q') : '' }}"
+                           class="form-control form-control-sm" placeholder="Buscar..." aria-label="Buscar" minlength="3" maxlength="100" required>
+                    <button class="btn btn-sm btn-light ms-1" aria-label="Buscar"><i class="bi bi-search"></i></button>
+                </form>
             </div>
         </div>
     </nav>
@@ -123,6 +130,11 @@
     <main class="py-4">
         @yield('contenido')
     </main>
+
+    {{-- Publicidad arriba del pie --}}
+    <div class="container">
+        @include('publico.partials.publicidad', ['banners' => $bannersFooter, 'clase' => 'mt-2'])
+    </div>
 
     {{-- ==================== Pie de página ==================== --}}
     <footer class="sitio-footer">

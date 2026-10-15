@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
-use App\Models\Cotizacion;
 use App\Models\Noticia;
 use App\Models\Publicidad;
 use Illuminate\View\View;
 
+/**
+ * Portada del diario.
+ * La columna lateral, el menú y el banner del header se cargan solos (ver AppServiceProvider).
+ */
 class PortadaController extends Controller
 {
     public function index(): View
@@ -47,17 +50,9 @@ class PortadaController extends Controller
             ->filter(fn ($bloque) => $bloque['notas']->isNotEmpty())
             ->values();
 
-        // 4) Columna lateral
-        $ultimas = Noticia::publicadas()->recientes()->take(6)->get(['id', 'titulo', 'slug', 'publicada_at']);
-        $masLeidas = Noticia::masLeidas(2)->with('categoria')->take(5)->get();
-        $cotizaciones = Cotizacion::visibles()->get();
+        // 4) Publicidad entre bloques
+        $bannersEntreBloques = Publicidad::vigentes()->enPosicion('entre_bloques')->get();
 
-        // 5) Publicidades por posición
-        $publicidades = Publicidad::vigentes()->get()->groupBy('posicion');
-
-        return view('publico.portada', compact(
-            'principal', 'secundarias', 'grilla', 'bloques',
-            'ultimas', 'masLeidas', 'cotizaciones', 'publicidades'
-        ));
+        return view('publico.portada', compact('principal', 'secundarias', 'grilla', 'bloques', 'bannersEntreBloques'));
     }
 }

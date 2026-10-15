@@ -2,10 +2,16 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\ConfiguracionController;
 use App\Http\Controllers\Admin\CotizacionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NoticiaController;
+use App\Http\Controllers\Admin\PublicidadController;
+use App\Http\Controllers\Admin\UsuarioController;
+use App\Http\Controllers\BusquedaController;
+use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PortadaController;
+use App\Http\Controllers\SeccionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +22,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PortadaController::class, 'index'])->name('inicio');
 
-// Páginas de nota y sección: se completan en el Módulo 9
-Route::get('nota/{noticia}', fn () => view('publico.proximamente'))->name('nota');
-Route::get('seccion/{categoria}', fn () => view('publico.proximamente'))->name('seccion');
+Route::get('nota/{noticia}', [NotaController::class, 'show'])->name('nota');
+Route::get('seccion/{categoria}', [SeccionController::class, 'seccion'])->name('seccion');
+Route::get('tema/{tag}', [SeccionController::class, 'tema'])->name('tema');
+Route::get('buscar', [BusquedaController::class, 'index'])->middleware('throttle:30,1')->name('buscar');
+
+// Clic en un banner: suma el clic y redirige al anunciante
+Route::get('publicidad/{publicidad}/clic', [PublicidadController::class, 'clic'])
+    ->middleware('throttle:60,1')
+    ->name('publicidad.clic');
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +82,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('cotizaciones/actualizar', [CotizacionController::class, 'actualizar'])
                 ->middleware('throttle:6,1')
                 ->name('cotizaciones.actualizar');
+        });
+
+        // ---- Módulo 10: Publicidades ----
+        Route::middleware('permission:publicidades.gestionar')->group(function () {
+            Route::resource('publicidades', PublicidadController::class)
+                ->except('show')
+                ->parameters(['publicidades' => 'publicidad']);
+        });
+
+        // ---- Módulo 10: Configuración del sitio ----
+        Route::middleware('permission:configuracion.gestionar')->group(function () {
+            Route::get('configuracion', [ConfiguracionController::class, 'index'])->name('configuracion.index');
+            Route::put('configuracion', [ConfiguracionController::class, 'update'])->name('configuracion.update');
+        });
+
+        // ---- Módulo 10: Usuarios ----
+        Route::middleware('permission:usuarios.gestionar')->group(function () {
+            Route::resource('usuarios', UsuarioController::class)
+                ->except('show')
+                ->parameters(['usuarios' => 'usuario']);
         });
     });
 });
